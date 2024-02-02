@@ -4,13 +4,21 @@ const { AxiosService } = require("./helper/axios_service");
 const { responseApi } = require("./helper/response_api");
 const baseUrl = "https://komikcast.lol";
 
+const controller = require('../controllers/controller');
+
+router.post('/register', controller.registerUser);
+router.post('/login', controller.loginUser);
+router.get('/comics/:id/favorites', controller.getFavComicUser);
+router.post('/comics/:id', controller.postComic);
+
 router.get("/", (req, res) => {
   return res.status(200).json({
     status: "success",
     message:
-      "Welcome, see https://github.com/Al-Ghozy03/komikcast-api for documentation",
+      "Welcome, dokumentation",
   });
 });
+
 router.get("/terbaru", async (req, res) => {
   const { page } = req.query;
   if (page === undefined) return responseApi(res, 500, "page is required");
